@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Service Admin — Вход и Регистрация</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #333;
+            background-image: url('/images/auth1.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 1.0);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 420px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .container h2 {
+            text-align: center;
+            color: #0a3d62;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            background-color: #f3f6f9;
+            border: 1px solid #ddd;
+            color: #333;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #0a3d62;
+            outline: none;
+            background-color: #f7f8fa;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #0a3d62, #145ca8);
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 17px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(10, 61, 98, 0.5);
+        }
+
+        .toggle-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .toggle-link:hover {
+            color: #0a3d62;
+            text-decoration: underline;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <!-- Вход -->
+    <div id="loginForm">
+        <h2>Welcome!</h2>
+        <form action="/login" method="post">
+            <div class="form-group">
+                <input type="text" name="username" placeholder="Login" required />
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" required />
+            </div>
+            <button type="submit">Log in</button>
+        </form>
+        <div class="toggle-link" onclick="toggleForms()">Have't account? <strong>Register</strong></div>
+    </div>
+
+    <!-- Регистрация -->
+    <div id="registerForm" style="display:none;">
+        <h2>Create Account</h2>
+        <form id="registrationForm">
+            <div class="form-group">
+                <input type="text" name="username" placeholder="Login" required />
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" required />
+            </div>
+            <div class="form-group">
+                <select name="role" required>
+                    <option value="" disabled selected>Role</option>
+                    <option value="USER">User</option>
+                    <option value="ADMIN">Admin</option>
+                </select>
+            </div>
+            <button type="button" onclick="registerUser()">Register</button>
+        </form>
+        <div class="toggle-link" onclick="toggleForms()">Already have account? <strong>Log in</strong></div>
+    </div>
+</div>
+
+<!-- Axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+    function toggleForms() {
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+
+        loginForm.style.display = loginForm.style.display === 'none' ? 'block' : 'none';
+        registerForm.style.display = registerForm.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function registerUser() {
+        const form = document.getElementById('registrationForm');
+        const username = form.querySelector('input[name="username"]').value.trim();
+        const password = form.querySelector('input[name="password"]').value.trim();
+        const role = form.querySelector('select[name="role"]').value;
+
+        if (!username || !password || !role) {
+            alert("Пожалуйста, заполните все поля.");
+            return;
+        }
+
+        axios.post('/api/register', { username, password, role })
+            .then(response => {
+                const message = response.data?.message || "Регистрация прошла успешно!";
+                alert(message);
+                toggleForms();
+            })
+            .catch(error => {
+                const message = error.response?.data?.message || "Ошибка регистрации.";
+                alert(message);
+            });
+    }
+</script>
+
+</body>
+</html>

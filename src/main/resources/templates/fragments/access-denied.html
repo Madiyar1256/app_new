@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доступ запрещен | GameZone</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0b0f23, #1a1e3a);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            color: white;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: -150px;
+            right: -150px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(193, 143, 255, 0.2), transparent 70%);
+            filter: blur(100px);
+            z-index: 0;
+            animation: pulse 8s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        .container {
+            background: rgba(18, 20, 30, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(145, 92, 255, 0.3);
+            text-align: center;
+            z-index: 2;
+            width: 85%;
+            max-width: 500px;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .icon {
+            font-size: 5rem;
+            color: #ff4d4d;
+            margin-bottom: 20px;
+            animation: bounce 1.5s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #c18fff;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #c18fff, #5f9bff);
+            color: black;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background: linear-gradient(135deg, #5f9bff, #c18fff);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(193, 143, 255, 0.6);
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #888;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #c18fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .footer a:hover {
+            color: #5f9bff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="icon">❌</div>
+    <h1>Доступ запрещен</h1>
+    <p>У вас нет разрешения на просмотр этой страницы. <br> Пожалуйста, свяжитесь с администратором для получения прав доступа.</p>
+    <a href="/" class="button">На главную страницу</a>
+</div>
+
+<div class="footer">
+    <p>&copy; 2025 GameZone. Все права защищены. <a href="/contact">Связаться с нами</a></p>
+</div>
+
+</body>
+</html>
